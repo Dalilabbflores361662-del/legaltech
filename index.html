@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Legaltech — Documentos legales en minutos</title>
+  <meta name="description" content="Legaltech (LT): crea documentos legales básicos para Bolivia de forma rápida y segura. Demo funcional para feria." />
+  <style>
+    /* Reset y tipografía */
+    :root{
+      --bg:#f5f3f1; --card:#ffffff; --accent:#0b2340; --accent-2:#003a6b; --muted:#6b6b6b; --black:#000000;
+      --glass: rgba(255,255,255,0.6);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--accent);line-height:1.4}
+    header{background:linear-gradient(180deg,rgba(11,35,64,0.95), rgba(0,58,107,0.9));color:white;padding:28px 20px}
+    .container{max-width:1100px;margin:0 auto;padding:18px}
+    .top{display:flex;align-items:center;gap:16px}
+    .logo{display:flex;gap:12px;align-items:center}
+    .logo img{width:72px;height:72px;object-fit:contain;border-radius:8px;background:white;padding:6px}
+    nav{margin-left:auto}
+    nav a{color:rgba(255,255,255,0.92);text-decoration:none;margin-left:14px;font-weight:600}
+
+    .hero{display:flex;gap:20px;padding:36px 0;align-items:center}
+    .hero-left{flex:1}
+    .hero h1{margin:0;font-size:28px}
+    .hero p{color:#d7e6ff;max-width:60%}
+    .cta{margin-top:18px}
+    .btn{background:#fff;color:var(--accent-2);padding:10px 16px;border-radius:8px;border:0;font-weight:700;cursor:pointer}
+
+    /* Cards y secciones */
+    section{padding:26px 0}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .card{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 6px 16px rgba(2,12,34,0.06)}
+    .muted{color:var(--muted)}
+
+    /* Formulario de generación */
+    .generate{display:grid;grid-template-columns:1fr 420px;gap:18px}
+    .panel{background:var(--card);padding:18px;border-radius:10px}
+    label{display:block;font-weight:700;margin-top:12px}
+    input[type=text], input[type=email], select, textarea{width:100%;padding:10px;margin-top:6px;border:1px solid #e3e3e3;border-radius:8px}
+    .price{font-size:22px;font-weight:800;color:var(--accent-2)}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* Abogados */
+    .lawyers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .lawyer{display:flex;gap:12px;align-items:center}
+    .avatar{width:64px;height:64px;border-radius:12px;background:linear-gradient(180deg,#e9eef6,#f5f7fb);display:flex;align-items:center;justify-content:center;font-weight:700}
+
+    /* FAQ y chat */
+    .faq .q{font-weight:700}
+    .chat{position:fixed;right:18px;bottom:18px;background:linear-gradient(180deg,#fff,#f7fbff);border-radius:12px;padding:12px;width:320px;box-shadow:0 10px 24px rgba(0,0,0,0.12)}
+
+    footer{background:#0b2340;color:#fff;padding:26px}
+
+    /* Responsive */
+    @media (max-width:920px){.generate{grid-template-columns:1fr}
+      .hero p{max-width:100%}
+      .logo img{width:56px;height:56px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container top">
+      <div class="logo">
+        <!-- Sustituir por tu logo. Si querés, subo versión optimizada -->
+        <img src="assets/logo.png" alt="Logo LT" id="logoImg">
+        <div>
+          <div style="font-weight:800;font-size:18px">Legaltech <span style="font-weight:400">(LT)</span></div>
+          <div class="small">Documentos legales en minutos</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#how">Cómo funciona</a>
+        <a href="#services">Servicios</a>
+        <a href="#lawyers">Abogados</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Legaltech — tu trámite, más fácil</h1>
+        <p><strong>Misión:</strong> Simplificar el acceso a documentos legales básicos en Bolivia mediante formularios guiados y conexión con abogados. <strong>Visión:</strong> Ser la puerta de entrada digital para trámites notariales y registros oficiales en todo el país.</p>
+        <div class="cta">
+          <button class="btn" id="startBtn">Crear documento ahora</button>
+        </div>
+      </div>
+      <div class="hero-right" style="flex:0.9">
+        <div class="card">
+          <h3>Demo funcional para feria</h3>
+          <p class="small">Seleccioná un trámite, completá los datos, verás el precio y podrás simular el pago con un QR. Al finalizar se generará un PDF listo para descargar y se mostrará un método para enviar por email.</p>
+          <ul class="small">
+            <li>Precios visibles</li>
+            <li>Generación de PDF en el navegador</li>
+            <li>Chat de ayuda con preguntas comunes</li>
+            <li>Red de abogados ficticia para contacto</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <h2>Cómo funciona</h2>
+      <div class="cards">
+        <div class="card">
+          <h4>1. Elegí trámite</h4>
+          <p class="muted">Seleccioná el tipo de documento que necesitás.</p>
+        </div>
+        <div class="card">
+          <h4>2. Completá el formulario</h4>
+          <p class="muted">Te hacemos preguntas específicas para cada trámite.</p>
+        </div>
+        <div class="card">
+          <h4>3. Pagá el trámite</h4>
+          <p class="muted">Pago demo: se muestra un QR antes de generar el documento.</p>
+        </div>
+        <div class="card">
+          <h4>4. Recibí tu documento</h4>
+          <p class="muted">PDF generado en el navegador y opciones para enviar por email.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <h2>Crear documento</h2>
+      <div class="generate">
+        <div>
+          <div class="panel">
+            <label for="docType">Tipo de trámite / documento</label>
+            <select id="docType">
+              <option value="arrendamiento">Contrato de arrendamiento — 50 Bs</option>
+              <option value="anticresis">Contrato de anticresis — 60 Bs</option>
+              <option value="compraventa">Contrato de compra-venta — 55 Bs</option>
+              <option value="laboral">Documento laboral — 70 Bs</option>
+              <option value="otros">Otros trámites sencillos — 60 Bs</option>
+              <option value="paquete5">Paquete 5 documentos — 240 Bs</option>
+              <option value="mensual">Paquete mensual ilimitado — 1500 Bs</option>
+              <option value="anual">Paquete anual ilimitado — 9900 Bs</option>
+            </select>
+
+            <div id="formFields">
+              <!-- Campos dinámicos por tipo -->
+              <label for="nombre">Nombre completo</label>
+              <input id="nombre" type="text" placeholder="Nombre y apellidos" />
+
+              <label for="ci">Cédula / NIT</label>
+              <input id="ci" type="text" placeholder="Número de identificación" />
+
+              <label for="email">Correo electrónico</label>
+              <input id="email" type="email" placeholder="cliente@ejemplo.com" />
+
+              <label for="detalle">Detalle / Observaciones</label>
+              <textarea id="detalle" rows="3" placeholder="Información adicional relevante"></textarea>
+            </div>
+
+            <div style="margin-top:12px;display:flex;align-items:center;justify-content:space-between">
+              <div>
+                <div class="small">Precio</div>
+                <div class="price" id="priceLabel">50 Bs</div>
+              </div>
+              <div>
+                <button class="btn" id="payBtn">Pagar (demo)</button>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="margin-top:12px" class="panel">
+            <h4>¿Te sirve la app?</h4>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn" id="voteYes">Sí</button>
+              <button class="btn" id="voteNo" style="background:#f6f6f6;color:var(--accent-2)">Tuve un problema</button>
+            </div>
+            <div id="feedbackBox" style="display:none;margin-top:8px">
+              <label for="feedback">Cuéntanos qué pasó</label>
+              <textarea id="feedback" rows="3" placeholder="Describe el inconveniente"></textarea>
+              <button class="btn" id="sendFeedback" style="margin-top:8px">Enviar feedback</button>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="panel">
+            <h3>Resumen</h3>
+            <div class="small">Tipo:</div>
+            <div id="summaryType">Arrendamiento</div>
+            <div class="small" style="margin-top:8px">Nombre:</div>
+            <div id="summaryName">—</div>
+            <div class="small" style="margin-top:8px">Email:</div>
+            <div id="summaryEmail">—</div>
+
+            <div style="margin-top:12px">
+              <h4>Pago demo / QR</h4>
+              <p class="small">Antes de generar el documento se muestra un QR (simulado). Al "confirmar pago" se generará el PDF.</p>
+              <div id="qrArea" style="text-align:center;margin-top:8px">
+                <!-- QR placeholder -->
+                <div style="display:inline-block;padding:12px;background:#fff;border-radius:6px"> 
+                  <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="120" height="120" fill="#fff"/>
+                    <rect x="8" y="8" width="32" height="32" fill="#000"/>
+                    <rect x="80" y="8" width="32" height="32" fill="#000"/>
+                    <rect x="8" y="80" width="32" height="32" fill="#000"/>
+                    <rect x="50" y="50" width="10" height="10" fill="#000"/>
+                  </svg>
+                </div>
+              </div>
+              <div style="margin-top:12px;text-align:center">
+                <button class="btn" id="confirmPay">Confirmar pago demo</button>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="panel" style="margin-top:12px">
+            <h4>Contacto rápido</h4>
+            <p class="small">Coordinador LT: +591 75054442</p>
+            <p class="small">Soporte: support@legaltech-demo.bo (demo)</p>
+            <p class="small">WhatsApp: <a href="https://wa.me/59175054442" target="_blank">Chatear</a></p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="lawyers">
+      <h2>Red de abogados</h2>
+      <div class="lawyers">
+        <!-- Ficticios -->
+        <div class="card lawyer">
+          <div class="avatar">DC</div>
+          <div>
+            <div style="font-weight:800">Dra. Daniela Cortez</div>
+            <div class="small">Especialidad: Derecho Civil / Contratos</div>
+            <div class="small">Tel: +591 721-33445</div>
+          </div>
+        </div>
+
+        <div class="card lawyer">
+          <div class="avatar">MR</div>
+          <div>
+            <div style="font-weight:800">Dr. Mauricio Rojas</div>
+            <div class="small">Especialidad: Notarial y Registral</div>
+            <div class="small">Tel: +591 701-11223</div>
+          </div>
+        </div>
+
+        <div class="card lawyer">
+          <div class="avatar">AS</div>
+          <div>
+            <div style="font-weight:800">Abg. Ana Sánchez</div>
+            <div class="small">Especialidad: Laboral</div>
+            <div class="small">Tel: +591 764-99812</div>
+          </div>
+        </div>
+
+        <div class="card lawyer">
+          <div class="avatar">JP</div>
+          <div>
+            <div style="font-weight:800">Dr. Juan Pablo Ortiz</div>
+            <div class="small">Especialidad: Empresas y Contratos mercantiles</div>
+            <div class="small">Tel: +591 725-44321</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>Preguntas frecuentes</h2>
+      <div class="card faq">
+        <p class="q">¿Los documentos tienen validez legal?</p>
+        <p class="muted">Los documentos generados son plantillas personalizadas. Para elevarlos a escritura pública o inscribirlos en registros, puede requerirse firma y formalidades adicionales ante notaría o registro.</p>
+
+        <p class="q">¿Cómo recibo el documento?</p>
+        <p class="muted">En esta demo el documento se genera como PDF en tu navegador y puedes descargarlo. También mostramos la opción de abrir tu cliente de correo para enviarlo por email.</p>
+
+        <p class="q">¿Hay atención humana?</p>
+        <p class="muted">Sí: la red de abogados mostrada es ficticia en la demo. En una versión real se mostrarían perfiles verificados y formas de contacto directo.</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contacto</h2>
+      <div class="card">
+        <label for="contactMsg">Mensaje para coordinador</label>
+        <textarea id="contactMsg" rows="3" placeholder="Escribe tu consulta"></textarea>
+        <div style="margin-top:8px"><button class="btn" id="sendContact">Enviar mensaje</button></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:800">Legaltech (LT)</div>
+          <div class="small">Slogan: Legaltech — tu trámite, más fácil</div>
+        </div>
+        <div class="small">Demo funcional para feria • Diseño serio y profesional • Tel: +591 75054442</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chat bot simple -->
+  <div class="chat" id="chat">
+    <div style="font-weight:800;margin-bottom:8px">Asistente LT</div>
+    <div id="chatLog" style="height:180px;overflow:auto;padding:6px;border-radius:8px;background:#fff"></div>
+    <input id="chatInput" type="text" placeholder="Preguntas típicas: ¿Cómo funciona?" style="margin-top:8px;padding:8px;border-radius:8px;border:1px solid #ddd;width:100%" />
+    <button class="btn" id="sendChat" style="margin-top:8px;width:100%">Enviar</button>
+  </div>
+
+  <!-- jsPDF CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    // Datos base y precios
+    const prices = {arrendamiento:50, anticresis:60, compraventa:55, laboral:70, otros:60, paquete5:240, mensual:1500, anual:9900}
+
+    const docType = document.getElementById('docType')
+    const priceLabel = document.getElementById('priceLabel')
+    const summaryType = document.getElementById('summaryType')
+    const summaryName = document.getElementById('summaryName')
+    const summaryEmail = document.getElementById('summaryEmail')
+
+    function updatePrice(){
+      const v = docType.value
+      priceLabel.textContent = prices[v] ? prices[v] + ' Bs' : '0 Bs'
+      const optText = docType.options[docType.selectedIndex].text
+      summaryType.textContent = optText
+    }
+    docType.addEventListener('change', updatePrice)
+    updatePrice()
+
+    // Resumen dinámico
+    document.getElementById('nombre').addEventListener('input', e=>summaryName.textContent = e.target.value || '—')
+    document.getElementById('email').addEventListener('input', e=>summaryEmail.textContent = e.target.value || '—')
+
+    // Votos feedback
+    document.getElementById('voteNo').addEventListener('click', ()=>{document.getElementById('feedbackBox').style.display='block'})
+    document.getElementById('sendFeedback').addEventListener('click', ()=>{
+      alert('Gracias. Tu feedback fue enviado (demo).')
+      document.getElementById('feedbackBox').style.display='none'
+    })
+
+    // Pago demo -> confirmar -> generar PDF
+    document.getElementById('confirmPay').addEventListener('click', async ()=>{
+      // Validaciones básicas
+      const nombre = document.getElementById('nombre').value.trim()
+      const email = document.getElementById('email').value.trim()
+      if(!nombre || !email){alert('Ingrese nombre y email para generar el documento.'); return}
+
+      // Simular procesamiento
+      document.getElementById('confirmPay').textContent='Generando...'
+      setTimeout(async ()=>{
+        // Generar PDF con jsPDF
+        const { jsPDF } = window.jspdf
+        const pdf = new jsPDF()
+        const tipo = docType.options[docType.selectedIndex].text
+        pdf.setFontSize(14)
+        pdf.text('LEGALTECH (LT) — Documento generado (demo)', 14, 20)
+        pdf.setFontSize(11)
+        pdf.text('Tipo: ' + tipo, 14, 34)
+        pdf.text('Nombre: ' + nombre, 14, 44)
+        pdf.text('Email: ' + email, 14, 52)
+        const detalle = document.getElementById('detalle').value || '-' 
+        pdf.text('Detalle: ' + detalle, 14, 62, {maxWidth: 180})
+        pdf.text('Precio cobrado (demo): ' + priceLabel.textContent, 14, 90)
+        pdf.text('Nota: Este PDF es una demostración. Para validez legal, puede requerirse firma ante notaría.', 14, 110, {maxWidth: 180})
+
+        const pdfBlob = pdf.output('blob')
+        const pdfUrl = URL.createObjectURL(pdfBlob)
+
+        // Mostrar enlace de descarga y opción para abrir mailto
+        const area = document.createElement('div')
+        area.innerHTML = `
+          <p class='small'>Documento listo. Podés descargarlo o abrir tu cliente de correo para enviarlo.</p>
+          <a href='${pdfUrl}' download='documento-legaltech.pdf' class='btn' style='display:inline-block;margin-right:8px'>Descargar PDF</a>
+          <button class='btn' id='mailtoBtn'>Enviar por email</button>
+        `
+        document.getElementById('qrArea').appendChild(area)
+
+        document.getElementById('confirmPay').textContent='Pago demo (confirmado)'
+
+        document.getElementById('mailtoBtn').addEventListener('click', ()=>{
+          const subject = encodeURIComponent('Documento Legaltech — ' + tipo)
+          const body = encodeURIComponent('Adjunto documento generado (descargalo en el enlace o revisa el archivo que descargaste).\\n\\nNota: Esto es una demo. Nombre: '+nombre)
+          // mailto no adjunta archivos. Indicamos al usuario que adjunte el PDF descargado.
+          window.location.href = `mailto:${email}?subject=${subject}&body=${body}`
+        })
+
+      },1200)
+    })
+
+    // Botón principal
+    document.getElementById('startBtn').addEventListener('click', ()=>{window.location.href='#services'})
+
+    // Chat bot simple (rule based)
+    const chatLog = document.getElementById('chatLog')
+    const chatInput = document.getElementById('chatInput')
+    const sendChat = document.getElementById('sendChat')
+
+    const faqs = {
+      'como funciona':'Elegí trámite → completá datos → pagá (demo) → generamos PDF.',
+      'precio arrendamiento':'El contrato de arrendamiento cuesta 50 Bs (demo).',
+      'validez legal':'Los documentos son plantillas. Para validez total puede requerirse firma en notaría.',
+      'contacto':'Coordinador: +591 75054442'
+    }
+
+    function appendChat(who,text){const el = document.createElement('div');el.style.marginBottom='8px';el.textContent=(who? 'Tú: ':'LT: ')+text;chatLog.appendChild(el);chatLog.scrollTop = chatLog.scrollHeight}
+
+    sendChat.addEventListener('click', ()=>{const q = chatInput.value.trim().toLowerCase(); if(!q) return; appendChat(true,chatInput.value); chatInput.value='';
+      // Chequear palabras clave
+      let found = false
+      Object.keys(faqs).forEach(k=>{if(q.includes(k)){appendChat(false,faqs[k]); found=true}})
+      if(!found) appendChat(false,'Puedes escribir: "¿Cómo funciona?", "precio arrendamiento", "validez legal", "contacto"')
+    })
+
+    // Enviar contacto
+    document.getElementById('sendContact').addEventListener('click', ()=>{
+      const msg = document.getElementById('contactMsg').value.trim()
+      if(!msg){alert('Escribe un mensaje antes de enviar.');return}
+      alert('Mensaje enviado al coordinador (demo).')
+      document.getElementById('contactMsg').value=''
+    })
+
+    // Enlaces de abogados pueden abrir dial
+    document.querySelectorAll('.lawyers .card').forEach(card=>{card.addEventListener('click', ()=>alert('Llamar / contactar al abogado (demo)'))})
+
+  </script>
+</body>
+</html>
